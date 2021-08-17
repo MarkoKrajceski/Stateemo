@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Stateemo.Models.FavouriteModel>
+@{
+    ViewBag.Title = "Favourites";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Favourites</h2>
+
+@foreach (var item in Model)
+{
+    <div>
+        @Html.DisplayNameFor(model => model.FavouriteChampion.IconURL)
+    </div>
+    <div>
+        @Html.DisplayNameFor(model => model.FavouriteChampion.Name)
+    </div>
+}

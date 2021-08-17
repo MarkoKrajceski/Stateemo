@@ -1,0 +1,18 @@
+﻿namespace Stateemo.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class FavouritesModelUpdate : DbMigration
+    {
+        public override void Up()
+        {
+            RenameTable(name: "dbo.Favourites", newName: "FavouriteModels");
+        }
+        
+        public override void Down()
+        {
+            RenameTable(name: "dbo.FavouriteModels", newName: "Favourites");
+        }
+    }
+}

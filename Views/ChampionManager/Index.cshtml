@@ -1,0 +1,103 @@
+﻿@model PagedList.IPagedList<Stateemo.Models.ChampionModel>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Champions</h2>
+
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+
+
+@using (Html.BeginForm("Index", "ChampionManager", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#pagesize").change(function () {
+            $("#form1").submit();
+        });
+    });
+
+</script>
+@using (Html.BeginForm("Index", "ChampionManager", FormMethod.Get, new { id = "form1" }))
+{
+    @Html.DropDownList("pagesize", (List<SelectListItem>)ViewBag.PageSize)
+    <br />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Icon
+        </th>
+        <th class="navbar-collapse collapse">
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter }, new { @class = "index-sorting" })
+            @*@Html.DisplayNameFor(model => model.Name)*@
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            @Html.ActionLink("Role", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter = ViewBag.CurrentFilter }, new { @class = "index-sorting" })
+            @*@Html.DisplayNameFor(model => model.Role.Name)*@
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <img style="height:30px; width:30px" src="@Html.DisplayFor(modelItem => item.IconURL)" alt="" />
+            </td>
+            <td style="padding-top:15px">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="padding-top:15px">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td style="padding-top:15px">
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td>
+                @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                {
+                    <input type="button" value="Edit" onclick="location.href='@Url.Action("Edit", "ChampionManager", new { id = item.Id })'" class="btn btn-default" />
+                }
+
+                <input type="button" value="Details" onclick="location.href='@Url.Action("Details", "ChampionManager", new { id = item.Id })'" class="btn btn-default" />
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <input type="button" value="Delete" onclick="location.href='@Url.Action("Delete", "ChampionManager", new { id = item.Id })'" class="btn btn-default" />
+                }
+                @if (User.IsInRole("User"))
+                {
+                    <input type="button" value="Favourite" onclick="location.href='@Url.Action("Favourite", "ChampionManager", new { id = item.Id })'" class="btn btn-default" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

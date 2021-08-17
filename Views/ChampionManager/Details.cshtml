@@ -1,0 +1,114 @@
+﻿@model Stateemo.Models.ChampionModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div style="background:url(@Html.DisplayFor(model => model.IconURL)); background-repeat:no-repeat; background-position:left; background-size:50px">
+    <div style="margin-left:60px">
+        <h2>@Html.DisplayFor(model => model.Name)</h2>
+        <h4>@Html.DisplayFor(model => model.Title)</h4>
+    </div>
+</div>
+<div>
+    <table class="table">
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.Role.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Role.Name)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.Ranged)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Ranged)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.AttackDamage)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AttackDamage)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.Health)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Health)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.HealthRegen)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.HealthRegen)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.Mana)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Mana)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.ManaRegen)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.ManaRegen)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.Armor)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Armor)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.MagicResist)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.MagicResist)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-weight:bolder">
+                @Html.DisplayNameFor(model => model.MovementSpeed)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.MovementSpeed)
+            </td>
+        </tr>
+
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

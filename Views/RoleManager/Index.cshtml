@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Stateemo.Models.RoleModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Roles</h2>
+
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+            {
+                <input type="button" value="Edit" onclick="location.href='@Url.Action("Edit", "RoleManager", new { id = item.Id })'" class="btn btn-default" />
+            }
+
+            <input type="button" value="Details" onclick="location.href='@Url.Action("Details", "RoleManager", new { id = item.Id })'" class="btn btn-default" />
+
+            @if (User.IsInRole("Admin"))
+            {
+                <input type="button" value="Delete" onclick="location.href='@Url.Action("Delete", "RoleManager", new { id = item.Id })'" class="btn btn-default" />
+            }
+        </td>
+    </tr>
+}
+
+</table>

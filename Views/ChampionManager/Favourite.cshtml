@@ -1,0 +1,17 @@
+﻿@model Stateemo.Models.FavouriteModel
+
+@{
+    ViewBag.Title = "Favourite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you want to FAVE @Html.DisplayFor(model => model.FavouriteChampion.Name)?</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Favourite" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
